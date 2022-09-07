@@ -86,17 +86,17 @@ variable "cost_center" {
 #   description = "The name of the DNS Zone. Must be a valid domain name"
 # }
 
-variable "cloudflare_zone_id" {
-  description = "Cloudflare Zone ID"
-  type        = string
-}
+# variable "cloudflare_zone_id" {
+#   description = "Cloudflare Zone ID"
+#   type        = string
+# }
 
-variable "cloudflare_name" {
-  description = "Cloudflare record name"
-  type        = string
-}
+# variable "cloudflare_name" {
+#   description = "Cloudflare record name"
+#   type        = string
+# }
 
-variable "cloudflare_type" {
-  description = "The type of the record"
-  type        = string
-}
+# variable "cloudflare_type" {
+#   description = "The type of the record"
+#   type        = string
+# }

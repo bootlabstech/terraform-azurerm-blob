@@ -29,17 +29,17 @@ resource "azurerm_storage_blob" "static-web-storage-blob" {
   storage_container_name = var.storage_container_name
   type                   = var.storage_type
   content_type           = var.storage_content_type
-  source_content         = var.source_content
+  source                 = var.source_content
 }
 
 #Add error.html to blob storage
-resource "azurerm_storage_blob" "static-web-storage-blob" {
+resource "azurerm_storage_blob" "static-web-error-blob" {
   name                   = var.error_404_document
   storage_account_name   = azurerm_storage_account.static-web-storage.name
   storage_container_name = var.storage_container_name
   type                   = var.storage_type
   content_type           = var.storage_content_type
-  source         = var.error_source
+  source_content         = var.error_source
 
 }
 
@@ -68,64 +68,4 @@ resource "azurerm_cdn_endpoint" "static-web-endpoint" {
     name      = var.rg-name
     host_name = azurerm_storage_account.static-web-storage.primary_web_host
   }
-
-  # Rules for Rules Engine
-  delivery_rule {
-    name  = "spaURLReroute"
-    order = "1"
-
-    url_file_extension_condition {
-      operator     = "LessThan"
-      match_values = ["1"]
-    }
-
-    url_rewrite_action {
-      destination             = "/index.html"
-      preserve_unmatched_path = "false"
-      source_pattern          = "/"
-    }
-  }
-
-  delivery_rule {
-    name  = "EnforceHTTPS"
-    order = "2"
-
-    request_scheme_condition {
-      operator     = "Equal"
-      match_values = ["HTTP"]
-    }
-
-    url_redirect_action {
-      redirect_type = "Found"
-      protocol      = "Https"
-    }
-  }
-}
-
-# resource "azurerm_dns_zone" "static-web" {
-#   name                = var.domain
-#   resource_group_name = azurerm_resource_group.resource_group.name
-# }
-
-# resource "azurerm_dns_cname_record" "static-web" {
-#   name                = var.cname
-#   zone_name           = azurerm_dns_zone.static-web.name
-#   resource_group_name = azurerm_dns_zone.static-web.resource_group_name
-#   ttl                 = var.ttl
-#   target_resource_id  = azurerm_cdn_endpoint.static-web-endpoint.id
-# }
-# resource "azurerm_cdn_endpoint_custom_domain" "static-web" {
-#   name            = var.cname
-#   cdn_endpoint_id = azurerm_cdn_endpoint.static-web-endpoint.id
-#   host_name       = "${azurerm_dns_cname_record.static-web.name}.${azurerm_dns_zone.static-web.name}"
-# }
-
-#Cloudflare
-module "modules" {
-  source             = "bootlabstech/modules/cloudflare"
-  version            = "1.0.1"
-  cloudflare_zone_id = var.cloudflare_zone_id
-  cloudflare_name    = var.cloudflare_name
-  cloudflare_value   = azurerm_cdn_endpoint.static-web-endpoint.id
-  cloudflare_type    = var.cloudflare_type
 }

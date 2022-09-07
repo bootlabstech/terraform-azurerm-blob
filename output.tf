@@ -4,7 +4,7 @@ output "resource_group_name" {
 }
 
 output "name" {
-  value       = azurerm_storage_account.static-web-demo-storage.primary_web_host
+  value       = azurerm_storage_account.static-web-storage.primary_web_host
   description = "Location/Endpoint of the storage blob"
 }
 
