@@ -2,11 +2,11 @@ resource "azurerm_resource_group" "resource_group" {
   name     = var.rg-name
   location = var.location
 }
-# resource "azurerm_management_lock" "rg" {
-#   name       = var.rg-name
-#   scope      = azurerm_resource_group.resource_group.id
-#   lock_level = var.lock_level
-# }
+resource "azurerm_management_lock" "rg" {
+  name       = var.rg-name
+  scope      = azurerm_resource_group.resource_group.id
+  lock_level = var.lock_level
+}
 
 resource "azurerm_storage_account" "static-web-storage" {
   name                     = var.storage-account-name
