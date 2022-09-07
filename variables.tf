@@ -6,10 +6,10 @@ variable "rg-name" {
   description = "The name of the resource group"
 }
 
-# variable "lock_level" {
-#   description = "Specifies the Level to be used for this Lock. Possible values are CanNotDelete and ReadOnly. Changing this forces a new resource to be created"
-#   default     = "ReadOnly"
-# }
+variable "lock_level" {
+  description = "Specifies the Level to be used for this Lock. Possible values are CanNotDelete and ReadOnly. Changing this forces a new resource to be created"
+  default     = "ReadOnly"
+}
 
 variable "storage_container_name" {
   description = "The name of the storage container in which this blob should be created"
@@ -73,30 +73,3 @@ variable "environment" {
 variable "cost_center" {
   description = "Cost center"
 }
-
-# variable "ttl" {
-#   description = "The Time To Live (TTL) of the DNS record in seconds."
-# }
-
-# variable "cname" {
-#   description = "The name of the DNS CNAME Record"
-# }
-
-# variable "domain" {
-#   description = "The name of the DNS Zone. Must be a valid domain name"
-# }
-
-# variable "cloudflare_zone_id" {
-#   description = "Cloudflare Zone ID"
-#   type        = string
-# }
-
-# variable "cloudflare_name" {
-#   description = "Cloudflare record name"
-#   type        = string
-# }
-
-# variable "cloudflare_type" {
-#   description = "The type of the record"
-#   type        = string
-# }
