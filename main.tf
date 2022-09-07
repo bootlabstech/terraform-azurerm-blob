@@ -49,11 +49,6 @@ resource "azurerm_cdn_profile" "static-web-cdnprofile" {
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   sku                 = var.cdnprofile-sku
-
-  tags = {
-    environment = var.environment
-    cost_center = var.cost_center
-  }
 }
 
 # CDN Endpoint

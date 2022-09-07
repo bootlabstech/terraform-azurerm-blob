@@ -82,13 +82,3 @@ variable "cdn-endpoint-name" {
   description = "Name of the CDN Endpoint Profile"
   type        = string
 }
-
-variable "environment" {
-  description = "Environment"
-  type        = string
-}
-
-variable "cost_center" {
-  description = "Cost center"
-  type        = string
-}
