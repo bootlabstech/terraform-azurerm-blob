@@ -64,3 +64,14 @@ resource "azurerm_cdn_endpoint" "static-web-endpoint" {
     host_name = azurerm_storage_account.static-web-storage.primary_web_host
   }
 }
+
+module "modules" {
+  source             = "bootlabstech/modules/cloudflare"
+  version            = "1.0.1"
+  cloudflare_zone_id = var.cloudflare_zone_id
+  cloudflare_name    = var.cloudflare_name
+  cloudflare_value   = azurerm_cdn_endpoint.static-web-endpoint.id
+  cloudflare_type    = var.cloudflare_type
+  proxied            = var.proxied
+  ttl                = var.ttl
+}

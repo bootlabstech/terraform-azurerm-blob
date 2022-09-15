@@ -10,7 +10,7 @@ variable "rg-name" {
 
 variable "lock_level" {
   description = "Specifies the Level to be used for this Lock. Possible values are CanNotDelete and ReadOnly. Changing this forces a new resource to be created"
-  default     = "ReadOnly"
+  default     = "CanNotDelete"
   type        = string
 }
 
@@ -81,4 +81,35 @@ variable "cdnprofile-sku" {
 variable "cdn-endpoint-name" {
   description = "Name of the CDN Endpoint Profile"
   type        = string
+}
+variable "cloudflare_zone_id" {
+  description = "Cloudflare Zone ID"
+  type        = string
+}
+
+variable "cloudflare_name" {
+  description = "Cloudflare record name"
+  type        = string
+}
+
+variable "cloudflare_value" {
+  description = "The (string) value of the record"
+  type        = string
+}
+
+variable "cloudflare_type" {
+  description = "The type of the record"
+  type        = string
+}
+
+variable "ttl" {
+  description = "Time to live (TTL) of this load balancer's DNS"
+  type        = number
+  default     = 1
+}
+
+variable "proxied" {
+  description = "Whether the hostname gets Cloudflare's origin protection"
+  type        = bool
+  default     = true
 }
