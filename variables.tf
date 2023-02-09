@@ -49,3 +49,9 @@ variable "allow_nested_items_to_be_public" {
   default = true
 
 }
+variable "public_network_access_enabled" {
+  description = "Provisioned IOPS (I/O operations per second) value."
+  type        = string
+  default = true
+
+}

@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "example" {
   account_tier             = var.sa_tier
   account_replication_type = var.sa_account_replication_type
   account_kind = "BlobStorage"
-  public_network_access_enabled = false
+  public_network_access_enabled = var.public_network_access_enabled
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   blob_properties {
     versioning_enabled = true
