@@ -1,115 +1,51 @@
+variable "sa_name" {
+  description = "Contains the name of the initial database of this instance that was provided at create time,"
+  type        = string
+
+}
+variable "resource_group_name" {
+  description = "Provides the name of the database engine to be used for this DB instance."
+  type        = string
+
+}
 variable "location" {
-  description = "The Azure Region in which all resources groups should be created."
+  description = " Database engine version."
   type        = string
-}
 
-variable "rg-name" {
-  description = "The name of the resource group"
-  type        = string
 }
+variable "sa_tier" {
+  description = "Contains the master username for the DB instance"
+  type        = string
 
-variable "lock_level" {
-  description = "Specifies the Level to be used for this Lock. Possible values are CanNotDelete and ReadOnly. Changing this forces a new resource to be created"
-  default     = "CanNotDelete"
-  type        = string
 }
+variable "sa_account_replication_type" {
+  description = "Contains the password for the DB instance"
+  type        = string
 
-variable "storage_container_name" {
-  description = "The name of the storage container in which this blob should be created"
-  type        = string
 }
-variable "storage_content_type" {
-  description = "The content type of the storage blob. Cannot be defined if source_uri is defined. Defaults to application/octet-stream"
+variable "sa_container_name" {
+  description = "Contains the name of the compute and memory capacity class of the DB instance"
   type        = string
-}
-variable "storage_type" {
-  description = "The type of the storage blob to be created. Possible values are Append, Block or Page. Changing this forces a new resource to be created."
-  type        = string
-}
 
-variable "storage-account-name" {
-  description = "The name of the storage account"
-  type        = string
 }
+variable "container_access_type" {
+  description = "Storage type associated with DB instance."
+  type        = string
 
-variable "index_document" {
-  description = "The index document of the static website"
-  type        = string
 }
-variable "error_404_document" {
-  description = "The absolute path to a custom webpage that should be used when a request is made which does not correspond to an existing file"
+variable "blob_name" {
+  description = "Allocated storage size specified in gigabytes"
   type        = string
-}
-variable "source_content" {
-  description = "This is the source content for the static website"
-  type        = string
-}
 
-variable "error_source" {
-  description = "An absolute path to a file on the local system. This field cannot be specified for Append blobs and cannot be specified if source_content or source_uri is specified"
+}
+variable "blob_type" {
+  description = "Provisioned IOPS (I/O operations per second) value."
   type        = string
-}
 
-variable "account_tier" {
-  description = "This is account tier for the storage account"
-  default     = "Standard"
+}
+variable "allow_nested_items_to_be_public" {
+  description = "Provisioned IOPS (I/O operations per second) value."
   type        = string
-}
+  default = true
 
-variable "account_replication_type" {
-  description = "This is account replication type for the storage account"
-  default     = "LRS"
-  type        = string
-}
-
-variable "account_kind" {
-  description = "This is account kind for the storage account"
-  default     = "StorageV2"
-  type        = string
-}
-
-variable "cdnprofile-name" {
-  description = "This is CDN Profile name"
-  type        = string
-}
-
-variable "cdnprofile-sku" {
-  description = "This is SKU of the CDN Profile"
-  type        = string
-}
-
-variable "cdn-endpoint-name" {
-  description = "Name of the CDN Endpoint Profile"
-  type        = string
-}
-variable "cloudflare_zone_id" {
-  description = "Cloudflare Zone ID"
-  type        = string
-}
-
-variable "cloudflare_name" {
-  description = "Cloudflare record name"
-  type        = string
-}
-
-variable "cloudflare_value" {
-  description = "The (string) value of the record"
-  type        = string
-}
-
-variable "cloudflare_type" {
-  description = "The type of the record"
-  type        = string
-}
-
-variable "ttl" {
-  description = "Time to live (TTL) of this load balancer's DNS"
-  type        = number
-  default     = 1
-}
-
-variable "proxied" {
-  description = "Whether the hostname gets Cloudflare's origin protection"
-  type        = bool
-  default     = true
 }

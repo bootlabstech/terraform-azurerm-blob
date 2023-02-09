@@ -1,77 +1,30 @@
-resource "azurerm_resource_group" "resource_group" {
-  name     = var.rg-name
-  location = var.location
-}
-resource "azurerm_management_lock" "rg" {
-  name       = var.rg-name
-  scope      = azurerm_resource_group.resource_group.id
-  lock_level = var.lock_level
-}
-
-resource "azurerm_storage_account" "static-web-storage" {
-  name                     = var.storage-account-name
-  resource_group_name      = azurerm_resource_group.resource_group.name
-  location                 = azurerm_resource_group.resource_group.location
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-  account_kind             = var.account_kind
-
-  static_website {
-    index_document     = var.index_document
-    error_404_document = var.error_404_document
+resource "azurerm_storage_account" "example" {
+  name                     = var.sa_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = var.sa_tier
+  account_replication_type = var.sa_account_replication_type
+  account_kind = "BlobStorage"
+  public_network_access_enabled = false
+  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
+  blob_properties {
+    versioning_enabled = true
+    
   }
+  
 }
 
-#Add index.html to blob storage
-resource "azurerm_storage_blob" "static-web-storage-blob" {
-  name                   = var.index_document
-  storage_account_name   = azurerm_storage_account.static-web-storage.name
-  storage_container_name = var.storage_container_name
-  type                   = var.storage_type
-  content_type           = var.storage_content_type
-  source                 = var.source_content
+
+resource "azurerm_storage_container" "example" {
+  name                  = var.sa_container_name
+  storage_account_name  = azurerm_storage_account.example.name
+  container_access_type = var.container_access_type
 }
 
-#Add error.html to blob storage
-resource "azurerm_storage_blob" "static-web-error-blob" {
-  name                   = var.error_404_document
-  storage_account_name   = azurerm_storage_account.static-web-storage.name
-  storage_container_name = var.storage_container_name
-  type                   = var.storage_type
-  content_type           = var.storage_content_type
-  source_content         = var.error_source
-
-}
-
-# CDN Profile
-resource "azurerm_cdn_profile" "static-web-cdnprofile" {
-  name                = var.cdnprofile-name
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-  sku                 = var.cdnprofile-sku
-}   
-
-# CDN Endpoint
-resource "azurerm_cdn_endpoint" "static-web-endpoint" {
-  name                = var.cdn-endpoint-name
-  profile_name        = azurerm_cdn_profile.static-web-cdnprofile.name
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-  origin_host_header  = azurerm_storage_account.static-web-storage.primary_web_host
-
-  origin {
-    name      = var.rg-name
-    host_name = azurerm_storage_account.static-web-storage.primary_web_host
-  }
-}
-
-module "modules" {
-  source             = "bootlabstech/modules/cloudflare"
-  version            = "1.0.1"
-  cloudflare_zone_id = var.cloudflare_zone_id
-  cloudflare_name    = var.cloudflare_name
-  cloudflare_value   = azurerm_cdn_endpoint.static-web-endpoint.id
-  cloudflare_type    = var.cloudflare_type
-  proxied            = var.proxied
-  ttl                = var.ttl
+resource "azurerm_storage_blob" "example" {
+  name                   = var.blob_name
+  storage_account_name   = azurerm_storage_account.example.name
+  storage_container_name = azurerm_storage_container.example.name
+  type                   = var.blob_type
+#   source                 = "some-local-file.zip"
 }
