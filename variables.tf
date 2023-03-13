@@ -16,6 +16,7 @@ variable "location" {
 variable "sa_tier" {
   description = "Contains the master username for the DB instance"
   type        = string
+  default = "Standard"
 
 }
 variable "sa_account_replication_type" {
@@ -31,9 +32,10 @@ variable "sa_container_name" {
 variable "container_access_type" {
   description = "Storage type associated with DB instance."
   type        = string
+  default = "blob"
 
 }
-variable "blob_name" {
+variable "name" {
   description = "Allocated storage size specified in gigabytes"
   type        = string
 
@@ -53,5 +55,10 @@ variable "public_network_access_enabled" {
   description = "Provisioned IOPS (I/O operations per second) value."
   type        = string
   default = true
+
+}
+variable "account_kind" {
+  description = "Provisioned IOPS (I/O operations per second) value."
+  type        = string
 
 }

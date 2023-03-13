@@ -4,7 +4,7 @@ resource "azurerm_storage_account" "example" {
   location                 = var.location
   account_tier             = var.sa_tier
   account_replication_type = var.sa_account_replication_type
-  account_kind = "BlobStorage"
+  account_kind             = var.account_kind
   public_network_access_enabled = var.public_network_access_enabled
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   blob_properties {
@@ -22,7 +22,7 @@ resource "azurerm_storage_container" "example" {
 }
 
 resource "azurerm_storage_blob" "example" {
-  name                   = var.blob_name
+  name                   = var.name
   storage_account_name   = azurerm_storage_account.example.name
   storage_container_name = azurerm_storage_container.example.name
   type                   = var.blob_type
