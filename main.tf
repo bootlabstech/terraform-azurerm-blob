@@ -1,30 +1,20 @@
-resource "azurerm_storage_account" "example" {
-  name                     = var.sa_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = var.sa_tier
-  account_replication_type = var.sa_account_replication_type
-  account_kind             = var.account_kind
-  public_network_access_enabled = var.public_network_access_enabled
-  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  blob_properties {
-    versioning_enabled = true
-    
-  }
-  
+data "azurerm_storage_account" "example" {
+  name                = var.storage_account_name
+  resource_group_name = var.resource_group_name
+  # location            = var.location
 }
-
-
-resource "azurerm_storage_container" "example" {
-  name                  = var.sa_container_name
-  storage_account_name  = azurerm_storage_account.example.name
-  container_access_type = var.container_access_type
+data "azurerm_storage_container" "example" {
+  name                 = var.container_name
+  storage_account_name = var.storage_account_name
 }
-
 resource "azurerm_storage_blob" "example" {
-  name                   = var.name
-  storage_account_name   = azurerm_storage_account.example.name
-  storage_container_name = azurerm_storage_container.example.name
-  type                   = var.blob_type
-#   source                 = "some-local-file.zip"
+  count                  = var.no_of_blob
+  name                   = var.name_of_blobs[count.index]
+  storage_account_name   = data.azurerm_storage_account.example.name
+  storage_container_name = data.azurerm_storage_container.example.name
+  type                   = var.type
+  size = var.size
+  # access_tier = var.access_tier
+  # source                 = "some-local-file.zip"
+
 }
