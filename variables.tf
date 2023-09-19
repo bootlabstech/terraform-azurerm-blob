@@ -1,36 +1,27 @@
 variable "storage_account_name" {
   type        = string
-  description = "The name of the Storage Account where the Container should be created."
-
+  description = "Specifies the storage account in which to create the storage container. Changing this forces a new resource to be created."
 }
 variable "sa_container_name" {
   type        = string
-  description = "The name of the Container which should be created within the Storage Account."
-
-
+  description = "The name of the storage container in which this blob should be created."
 }
 variable "container_access_type" {
   type        = string
   description = "The Access Level configured for this Container. Possible values are blob, container or private. Defaults to private."
-
 }
 variable "name" {
   type        = string
-  description = "Specifies the name of the storage account. Only lowercase Alphanumeric characters allowed. "
-
+  description = "The name of the storage blob. Must be unique within the storage container the blob is located."
 }
 variable "type" {
   type        = string
-  description = "The type of the storage blob to be created. Possible values are Append, Block or Page"
-
-
+  description = "The type of the storage blob to be created. Possible values are Append, Block or Page. Defaults to Block"
 }
 variable "size" {
   type        = string
   description = "Used only for page blobs to specify the size in bytes of the blob to be created. Must be a multiple of 512. Defaults to 0"
-  default = "0"
-
-
+  default     = "0"
 }
 variable "access_tier" {
   type        = string
